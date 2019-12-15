@@ -1,19 +1,25 @@
 import socket
 import gdb
+import os
 
 class DebugConnection:
 
   def __init__(self, sock=None):
       if sock is None:
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
       else:
         self.socket = sock
 
-  def listen(self, port):
-    self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
-    self.socket.bind(('localhost', port))
-    self.socket.listen()
-    self.connection, address = self.socket.accept()
+  def listen(self):
+    server_path = '/tmp/debug_socket'
+    try:
+      os.unlink(server_path)
+    except OSError:
+      if os.path.exists(server_path):
+        raise
+    self.socket.bind(server_path)
+    self.socket.listen(1)
+    self.connection, self.address = self.socket.accept()
 
   def handleCommands(self, instance):
     while True:
@@ -38,5 +44,5 @@ class GDB_Process:
 
 instance = GDB_Process("../tests/binaries/hello")
 debug = DebugConnection()
-debug.listen(12345)
+debug.listen()
 debug.handleCommands(instance)
