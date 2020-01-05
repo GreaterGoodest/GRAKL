@@ -5,7 +5,7 @@ import sys
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 gdb_sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) 
 server_path = "/tmp/debug_socket"
@@ -17,7 +17,7 @@ except(socket.error):
 
 
 @socketio.on("command")
-def index():
+def gdb_recv(methods=['GET','POST']):
     print("Received command")
     gdb_sock.sendall(b"disas main")
 

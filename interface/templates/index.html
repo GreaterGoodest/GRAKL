@@ -10,7 +10,10 @@
 <script type="text/javascript">
     var socket = io.connect('http://' + document.domain + ':5001') 
 
-    socket.emit('command')
+    socket.on('connect', function(){
+        console.log('connecting')
+        socket.emit('command')
+    })
 </script>
 {% endblock %}
 
