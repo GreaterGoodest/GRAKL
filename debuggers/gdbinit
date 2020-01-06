@@ -1,0 +1,11 @@
+python
+import sys
+import os
+import subprocess
+# Execute a Python using the user's shell and pull out the sys.path
+#  from that version
+paths = eval(subprocess.check_output('python -c "import sys;print(sys.path)"',
+                                     shell=True).strip())
+# Extend the current GDB instance's Python paths
+sys.path.extend(paths)
+end
