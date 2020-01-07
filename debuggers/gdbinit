@@ -9,3 +9,5 @@ paths = eval(subprocess.check_output('python -c "import sys;print(sys.path)"',
 # Extend the current GDB instance's Python paths
 sys.path.extend(paths)
 end
+
+source debug.py

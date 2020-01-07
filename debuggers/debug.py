@@ -1,48 +1,27 @@
-import socket
+from flask import Flask, request
+from flask_socketio import SocketIO
 import gdb
+import socket
 import os
 
-class DebugConnection:
-
-  def __init__(self, sock=None):
-      if sock is None:
-        self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-      else:
-        self.socket = sock
-
-  def listen(self):
-    server_path = '/tmp/debug_socket'
-    try:
-      os.unlink(server_path)
-    except OSError:
-      if os.path.exists(server_path):
-        raise
-    self.socket.bind(server_path)
-    self.socket.listen(1)
-    self.connection, self.address = self.socket.accept()
-
-  def handleCommands(self, instance):
-    while True:
-      command = self.connection.recv(1024)
-      command = command.rstrip().decode("utf-8")
-      try:
-        output = instance.run_command(command)
-      except gdb.error as e:
-        print(str(e)) 
-        continue
-
-      print(output)
-
-
-class GDB_Process:
+class GDBProcess:
 
   def __init__(self, binary):
     gdb.execute('file {}'.format(binary)) 
 
   def run_command(self, command):
-    return gdb.execute(command, to_string=True)
+    print(gdb.execute(command, to_string=True))
 
-instance = GDB_Process("../tests/binaries/hello")
-debug = DebugConnection()
-debug.listen()
-debug.handleCommands(instance)
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app, cors_allowed_origins="*")
+
+instance = GDBProcess("../tests/binaries/hello")
+
+@socketio.on("command")
+def gdb_recv(methods=['GET','POST']):
+    print("Received command")
+    instance.run_command("disas main")
+
+socketio.run(app, debug=False, port=5001)
