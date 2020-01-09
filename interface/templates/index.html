@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="col-mid-4 text-center">
-    <a href="/" class="btn btn-primary">Step</a>
+    <button id="step" type="button" class="btn btn-primary">Step</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -11,8 +11,10 @@
     var socket = io.connect('http://' + document.domain + ':5001') 
 
     socket.on('connect', function(){
-        console.log('connecting')
-        socket.emit('command')
+        var button = $('#step').click(function(){
+            console.log('stepping')
+            socket.emit('command')
+        })
     })
 </script>
 {% endblock %}
