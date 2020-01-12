@@ -10,4 +10,8 @@ paths = eval(subprocess.check_output('python -c "import sys;print(sys.path)"',
 sys.path.extend(paths)
 end
 
+set disassembly-flavor intel
+set pagination off
+
 source debug.py
+
