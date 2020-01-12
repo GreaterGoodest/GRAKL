@@ -3,8 +3,7 @@
 {% block content %}
 
 
-<div class="debug_output col-mid-4 text-center">
-    
+<span class="debug_output col-mid-4 text-center">
 
 <div class="col-mid-4 text-center">
     <button id="step" type="button" class="btn btn-primary">Step</button>
@@ -26,7 +25,8 @@
 
     socket.on('output', function(msg){
         console.log("message: " + msg)
-        $('div.debug_output').append(msg)
+        msg = msg.replace(/\n/g, "<br />")
+        $('span.debug_output').append(msg)
     })
 </script>
 {% endblock %}
