@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+
+<div class="debug_output col-mid-4 text-center">
+    
+
 <div class="col-mid-4 text-center">
     <button id="step" type="button" class="btn btn-primary">Step</button>
 </div>
@@ -15,6 +20,11 @@
             console.log('stepping')
             socket.emit('command')
         })
+    })
+
+    socket.on('output', function(msg){
+        console.log(msg)
+        $('div.debug_output').append(msg)
     })
 </script>
 {% endblock %}

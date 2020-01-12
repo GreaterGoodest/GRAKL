@@ -10,7 +10,9 @@ class GDBProcess:
     gdb.execute('file {}'.format(binary)) 
 
   def run_command(self, command):
-    print(gdb.execute(command, to_string=True))
+    output = gdb.execute(command, to_string=True)
+    print(output)
+    return output
 
 
 app = Flask(__name__)
@@ -22,6 +24,7 @@ instance = GDBProcess("../tests/binaries/hello")
 @socketio.on("command")
 def gdb_recv(methods=['GET','POST']):
     print("Received command")
-    instance.run_command("disas main")
+    output = instance.run_command("disas main")
+    socketio.emit('output', output)
 
 socketio.run(app, debug=False, port=5001)
