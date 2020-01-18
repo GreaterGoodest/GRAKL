@@ -26,6 +26,21 @@ def gdb_recv(command, methods=['GET','POST']):
     print(output)
     socketio.emit('output', output)
 
+@socketio.on("update_registers")
+def update_registers(methods=['GET','POST']):
+    registers = instance.run_command("i r")
+    socketio.emit('registers', registers)
+
+@socketio.on("update_stack")
+def update_stack(methods=['GET','POST']):
+    stack = instance.run_command("x/52x $rsp") #only handles 64 bit for now (rsp)
+    socketio.emit('stack', stack)
+
+@socketio.on("update_disas")
+def update_disas(methods=['GET','POST']):
+    disas = instance.run_command("x/10i $rip") #not sure how to get previous lines...
+    socketio.emit('disas', disas)
+
 @socketio.on("no_out_command")#no output desired
 def gdb_recv_no_out(command, methods=['GET','POST']):
     output = instance.run_command(str(command))
