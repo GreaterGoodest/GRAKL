@@ -2,14 +2,24 @@
 
 {% block content %}
 
+<div class="container">
+    <div class="row">
+        <div class="disas col-sm-6">
+            Disassembly
+        </div>
+        <div class="stack col-sm-6">
+            Stack
+        </div>
+    </div>
+</div>
 
-<span class="debug_output col-mid-4"></span>
-
-<span class="disas col-mid-4"></span>
-
-<span class="stack col-mid-4"></span>
-
-<span class="registers col-mid-4"></span>
+<div class="container">
+    <div class="row">
+        <div class="registers col-sm-6">
+            Registers
+        </div>
+    </div>
+</div>
 
 <div class="col-mid-4 text-center">
     <button id="step" type="button" class="btn btn-primary">Step</button>

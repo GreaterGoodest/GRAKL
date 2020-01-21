@@ -28,16 +28,19 @@ def gdb_recv(command, methods=['GET','POST']):
 
 @socketio.on("update_registers")
 def update_registers(methods=['GET','POST']):
+    print("registers")
     registers = instance.run_command("i r")
     socketio.emit('registers', registers)
 
 @socketio.on("update_stack")
 def update_stack(methods=['GET','POST']):
+    print("stack")
     stack = instance.run_command("x/52x $rsp") #only handles 64 bit for now (rsp)
     socketio.emit('stack', stack)
 
 @socketio.on("update_disas")
 def update_disas(methods=['GET','POST']):
+    print("disas")
     disas = instance.run_command("x/10i $rip") #not sure how to get previous lines...
     socketio.emit('disas', disas)
 
