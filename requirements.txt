@@ -1,10 +1,11 @@
 Click==7.0
 dnspython==1.16.0
 dominate==2.4.0
-eventlet==0.25.1
 Flask==1.1.1
 Flask-Bootstrap==3.3.7.1
 Flask-SocketIO==4.2.1
+gevent==1.4.0
+gevent-websocket==0.10.1
 greenlet==0.4.15
 itsdangerous==1.1.0
 Jinja2==2.10.3
