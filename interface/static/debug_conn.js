@@ -1,4 +1,4 @@
-var socket = io.connect('http://' + document.domain + ':5001', {'sync disconnect on unload': true})
+var socket = io.connect('http://' + document.domain + ':5001')
 
 socket.on('connect', function(){
     socket.emit('no_out_command', 'b *main')
@@ -30,8 +30,4 @@ socket.on('stack', function(data){
     console.log("data: " + data)
     data = data.replace(/\n/g, "<br />")
     $('.stack').html(data)
-})
-
-$(window).on('beforeunload', function(){
-    socket.close();
 })
