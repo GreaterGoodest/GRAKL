@@ -1,25 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='debug.css')}}">
 
-<div class="container">
-    <div class="row">
-        <div class="disas col-sm-6 panel panel-default">
-            Disassembly
+<div class="row">
+    <div class="col-sm-6">
+    <div class="card debug-card">
+        <div class="card-body">
+            <h5 class="card-title">Disassembly</h5>
+            <p class="disas card-text">D info</p>
         </div>
-        <div class="stack col-sm-6 panel panel-default">
-            Stack
+    </div>
+    </div>
+
+    <div class="col-sm-6">
+    <div class="card debug-card">
+        <div class="card-body">
+            <h5 class="card-title">Registers</h5>
+            <p class="registers card-text">R info</p>
         </div>
+    </div>
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="registers col-sm-6 panel panel-default">
-            Registers
+<div class="row">
+    <div class="col-sm-6">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Stack</h5>
+            <p class="stack card-text">S info</p>
         </div>
     </div>
+    </div>
 </div>
+
 
 <div class="col-mid-4 text-center">
     <button id="step" type="button" class="btn btn-primary">Step</button>
