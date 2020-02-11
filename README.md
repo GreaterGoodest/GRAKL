@@ -8,6 +8,5 @@ Load interface on http://localhost:5000
 
 Run debugger 'gdb --command=gdbinit
 
-
-Setup must be done in this order for now...
-future goal is to determine why this order matters, and resolve the issue.
+Connection often takes a while to establish. You'll see output when it's done.
+Working on determining why it takes so long.
