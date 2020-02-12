@@ -1,4 +1,4 @@
-var socket = io.connect('http://' + document.domain + ':5001')
+var socket = io('http://' + document.domain + ':5001', {'transports': ['websocket', 'polling']})
 
 socket.on('connect', function(){
     socket.emit('no_out_command', 'b *main')
