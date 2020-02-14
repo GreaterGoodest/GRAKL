@@ -3,18 +3,19 @@
 {% block content %}
 <link rel="stylesheet" href="{{url_for('static', filename='debug.css')}}">
 
-<div class="row">
-    <div class="col-sm-6">
-    <div class="card debug-card">
+<div class="row h-50">
+    <div class="col-sm-12 col-lg-6">
+    <div class="card scroll">
         <div class="card-body">
             <h5 class="card-title">Disassembly</h5>
+            <button id="step" type="button" class="btn btn-primary">Step</button>
             <p class="disas card-text">D info</p>
         </div>
     </div>
     </div>
 
-    <div class="col-sm-6">
-    <div class="card debug-card">
+    <div class="col-sm-12 col-lg-6">
+    <div class="card scroll">
         <div class="card-body">
             <h5 class="card-title">Registers</h5>
             <p class="registers card-text">R info</p>
@@ -23,9 +24,9 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-6">
-    <div class="card">
+<div class="row h-50">
+    <div class="col-sm-12 col-lg-6">
+    <div class="card scroll">
         <div class="card-body">
             <h5 class="card-title">Stack</h5>
             <p class="stack card-text">S info</p>
@@ -33,12 +34,6 @@
     </div>
     </div>
 </div>
-
-
-<div class="col-mid-4 text-center">
-    <button id="step" type="button" class="btn btn-primary">Step</button>
-</div>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>

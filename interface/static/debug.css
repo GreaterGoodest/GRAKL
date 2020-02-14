@@ -10,7 +10,11 @@ body{
     font-family: 'Muli', sans-serif;
 }
 
-.debug-card{
-    height: 50%;
-    overflow: scroll;
+.scroll{
+    overflow-y: scroll;
+    max-height: 75%;
+}
+
+.card-title{
+    color: #8f0b0b;
 }
