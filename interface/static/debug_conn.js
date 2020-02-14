@@ -44,6 +44,15 @@ socket.on('stack', function(data){
     $('.stack').html(data)
 })
 
+
+function populate_bp(){
+    for (var id in breakpoints){
+        console.log(breakpoints[id])
+        //append to text id of html element
+    }
+
+}
+
 socket.on('bp', function(data){
     data = data.split("\n")
     data = data.slice(1)
@@ -62,5 +71,5 @@ socket.on('bp', function(data){
         bp = new Breakpoint(clean_info[0], clean_info[4], symbol_data.join(" "))
         breakpoints[bp.id] = bp
     }
-    console.log(breakpoints)
+    populate_bp()
 })
