@@ -2,7 +2,10 @@ var socket = io('http://' + document.domain + ':5001', {'transports': ['websocke
 
 socket.on('connect', function(){
     socket.emit('no_out_command', 'b *main')
+    socket.emit('no_out_command', 'b *main+4')
+    socket.emit('no_out_command', 'b *main+16')
     socket.emit('no_out_command', 'r')
+    socket.emit('no_out_command', 'c')
     socket.emit('update_disas')
     socket.emit('update_bp')
     console.log('connected')
