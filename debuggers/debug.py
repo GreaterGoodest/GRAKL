@@ -47,6 +47,12 @@ def update_disas(methods=['GET','POST']):
     disas = instance.run_command("x/10i $rip") #not sure how to get previous lines...
     socketio.emit('disas', disas)
 
+@socketio.on("update_bp")
+def update_bp(methods=['GET','POST']):
+    print("bp")
+    bp = instance.run_command("i b")
+    socketio.emit('bp', bp)
+
 @socketio.on("no_out_command")#no output desired
 def gdb_recv_no_out(command, methods=['GET','POST']):
     output = instance.run_command(str(command))

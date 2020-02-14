@@ -4,6 +4,7 @@ socket.on('connect', function(){
     socket.emit('no_out_command', 'b *main')
     socket.emit('no_out_command', 'r')
     socket.emit('update_disas')
+    socket.emit('update_bp')
     console.log('connected')
     var button = $('#step').click(function(){
         console.log('button')
@@ -30,4 +31,10 @@ socket.on('stack', function(data){
     console.log("data: " + data)
     data = data.replace(/\n/g, "<br />")
     $('.stack').html(data)
+})
+
+socket.on('bp', function(data){
+    console.log("data: " + data)
+    data = data.replace(/\n/g, "<br />")
+    $('.breakpoints').html(data)
 })
