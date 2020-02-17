@@ -47,8 +47,23 @@ socket.on('stack', function(data){
 
 function populate_bp(){
     for (var id in breakpoints){
-        console.log(breakpoints[id])
         //append to text id of html element
+        bp = breakpoints[id];
+        form = document.getElementById('breakpoints');
+
+        var checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        checkbox.name = bp.id;
+        checkbox.value = bp.address;
+        checkbox.id = bp.id;
+
+        var label = document.createElement('label')
+        label.htmlFor = bp.id;
+        label.appendChild(document.createTextNode(bp.address + ' ' + bp.symbol_data));
+
+        form.appendChild(checkbox);
+        form.appendChild(label);
+        form.appendChild(document.createElement("br"));
     }
 
 }
