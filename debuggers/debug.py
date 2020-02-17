@@ -53,6 +53,15 @@ def update_bp(methods=['GET','POST']):
     bp = instance.run_command("i b")
     socketio.emit('bp', bp)
 
+@socketio.on("delete_bp")
+def delete_bp(to_delete, methods=['GET','POST']):
+    print('del bp')
+    i = 0
+    while to_delete[i]:
+        instance.run_command("d " + to_delete[i])
+        print(instance.run_command("i b"))
+        i+=1
+
 @socketio.on("no_out_command")#no output desired
 def gdb_recv_no_out(command, methods=['GET','POST']):
     output = instance.run_command(str(command))

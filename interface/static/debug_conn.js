@@ -20,12 +20,23 @@ socket.on('connect', function(){
     socket.emit('update_disas')
     socket.emit('update_bp')
     console.log('connected')
-    var button = $('#step').click(function(){
-        console.log('button')
+
+    var step_button = $('#step').click(function(){
         socket.emit('no_out_command', 'stepi')
         socket.emit('update_registers')
         socket.emit('update_stack')
         socket.emit('update_disas')
+    })
+
+    var delete_button = $('#bp_delete').click(function(){
+        console.log('delete')
+        var to_delete = $('.bp_checkbox').filter(':checked')
+        var del_ids = []
+        for (i in to_delete){
+            del_ids.push(to_delete[i].id)
+        }
+        socket.emit('delete_bp', del_ids)
+        socket.emit('update_bp')
     })
 })
 
