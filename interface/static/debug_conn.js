@@ -56,6 +56,7 @@ function populate_bp(){
         checkbox.name = bp.id;
         checkbox.value = bp.address;
         checkbox.id = bp.id;
+        checkbox.classList.add("bp_checkbox")
 
         var label = document.createElement('label')
         label.htmlFor = bp.id;
@@ -87,4 +88,9 @@ socket.on('bp', function(data){
         breakpoints[bp.id] = bp
     }
     populate_bp()
+    var bpCheckBoxes = $('.bp_checkbox');
+    bpCheckBoxes.change(function(){
+        $('#bp_delete').prop('disabled', !bpCheckBoxes.filter(':checked').length);
+    })
+    bpCheckBoxes.change();
 })
