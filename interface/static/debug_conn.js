@@ -34,6 +34,7 @@ socket.on('connect', function(){
         var del_ids = []
         for (i in to_delete){
             del_ids.push(to_delete[i].id)
+            delete breakpoints[to_delete[i].id]
         }
         socket.emit('delete_bp', del_ids)
         socket.emit('update_bp')
@@ -57,6 +58,17 @@ socket.on('stack', function(data){
 
 
 function populate_bp(){
+
+    var live_bps = document.getElementsByClassName("bp_checkbox");
+    while (live_bps[0]){
+        live_bps[0].parentNode.removeChild(live_bps[0]);
+    }
+
+    var bp_labels = document.getElementsByClassName("bp_label");
+    while (bp_labels[0]){
+        bp_labels[0].parentNode.removeChild(bp_labels[0]);
+    }
+
     for (var id in breakpoints){
         //append to text id of html element
         bp = breakpoints[id];
@@ -67,9 +79,10 @@ function populate_bp(){
         checkbox.name = bp.id;
         checkbox.value = bp.address;
         checkbox.id = bp.id;
-        checkbox.classList.add("bp_checkbox")
+        checkbox.classList.add("bp_checkbox");
 
-        var label = document.createElement('label')
+        var label = document.createElement('label');
+        label.classList.add("bp_label");
         label.htmlFor = bp.id;
         label.appendChild(document.createTextNode(bp.address + ' ' + bp.symbol_data));
 
@@ -96,7 +109,9 @@ socket.on('bp', function(data){
         }
         symbol_data = clean_info.slice(6)
         bp = new Breakpoint(clean_info[0], clean_info[4], symbol_data.join(" "))
-        breakpoints[bp.id] = bp
+        if (!(bp.id in breakpoints)){
+            breakpoints[bp.id] = bp
+        }
     }
     populate_bp()
     var bpCheckBoxes = $('.bp_checkbox');
