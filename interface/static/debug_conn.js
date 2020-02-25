@@ -39,6 +39,20 @@ socket.on('connect', function(){
         socket.emit('delete_bp', del_ids)
         socket.emit('update_bp')
     })
+
+    var add_button = $('#bp_add').click(function(){
+        console.log('add');
+        var to_add = $('#add_bp').val();
+        if (to_add != ""){
+            if(to_add.substr(0,2) != "0x"){
+                to_add = "0x".concat(to_add);
+            }
+            if(to_add.length > 18){
+                return;
+            }
+            console.log(to_add);
+        }
+    })
 })
 
 socket.on('disas', function(data){
@@ -59,17 +73,17 @@ socket.on('stack', function(data){
 
 function populate_bp(){
 
-    var live_bps = document.getElementsByClassName("bp_checkbox");
+    var live_bps = document.getElementsByClassName("bp_checkbox"); //remove deleted bp checkboxes
     while (live_bps[0]){
         live_bps[0].parentNode.removeChild(live_bps[0]);
     }
 
-    var bp_labels = document.getElementsByClassName("bp_label");
+    var bp_labels = document.getElementsByClassName("bp_label"); //remove deleted bp labels
     while (bp_labels[0]){
         bp_labels[0].parentNode.removeChild(bp_labels[0]);
     }
 
-    for (var id in breakpoints){
+    for (var id in breakpoints){ //create checkboxes/labels for breakpoints
         //append to text id of html element
         bp = breakpoints[id];
         form = document.getElementById('breakpoints');
