@@ -18,3 +18,7 @@ body{
 .card-title{
     color: #8f0b0b;
 }
+
+br + br{
+    display: none;
+}
