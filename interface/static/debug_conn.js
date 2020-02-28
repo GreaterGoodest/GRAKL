@@ -50,7 +50,8 @@ socket.on('connect', function(){
             if(to_add.length > 18){
                 return;
             }
-            console.log(to_add);
+            socket.emit('add_bp', to_add);
+            socket.emit('update_bp')
         }
     })
 })

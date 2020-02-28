@@ -53,6 +53,14 @@ def update_bp(methods=['GET','POST']):
     bp = instance.run_command("i b")
     socketio.emit('bp', bp)
 
+@socketio.on('add_bp')
+def add_bp(to_add, methods=['GET', 'POST']):
+    try:
+        set_bp = instance.run_command("b *" + to_add)
+        print(set_bp)
+    except gdb.error:
+        print("Invalid BP")
+
 @socketio.on("delete_bp")
 def delete_bp(to_delete, methods=['GET','POST']):
     print('del bp')
