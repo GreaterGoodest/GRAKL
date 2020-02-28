@@ -18,3 +18,11 @@ body{
 .card-title{
     color: #8f0b0b;
 }
+
+br + br{ /*remove extra linebreaks caused by deleting form elements using JS*/
+    display: none;
+}
+
+#bp_delete{
+    margin-right:50px;
+}

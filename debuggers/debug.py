@@ -47,6 +47,29 @@ def update_disas(methods=['GET','POST']):
     disas = instance.run_command("x/10i $rip") #not sure how to get previous lines...
     socketio.emit('disas', disas)
 
+@socketio.on("update_bp")
+def update_bp(methods=['GET','POST']):
+    print("bp")
+    bp = instance.run_command("i b")
+    socketio.emit('bp', bp)
+
+@socketio.on('add_bp')
+def add_bp(to_add, methods=['GET', 'POST']):
+    try:
+        set_bp = instance.run_command("b *" + to_add)
+        print(set_bp)
+    except gdb.error:
+        print("Invalid BP")
+
+@socketio.on("delete_bp")
+def delete_bp(to_delete, methods=['GET','POST']):
+    print('del bp')
+    i = 0
+    while to_delete[i]:
+        instance.run_command("d " + to_delete[i])
+        print(instance.run_command("i b"))
+        i+=1
+
 @socketio.on("no_out_command")#no output desired
 def gdb_recv_no_out(command, methods=['GET','POST']):
     output = instance.run_command(str(command))

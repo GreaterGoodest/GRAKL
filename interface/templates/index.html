@@ -27,9 +27,32 @@
 <div class="row h-50">
     <div class="col-sm-12 col-lg-6">
     <div class="card scroll">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="card-list" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#stack" role="tab" aria-controls="stack" aria-selected="true">Stack</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#breakpoints" role="tab" aria-controls="breakpoints" aria-selected="false">Breakpoints</a>
+                </li>
+            </ul>
+        </div>
         <div class="card-body">
-            <h5 class="card-title">Stack</h5>
-            <p class="stack card-text">S info</p>
+            <div class="tab-content mt-3">
+                <div class="tab-pane active" id="stack" role="tabpanel">
+                    <h5 class="card-title">Stack</h5>
+                    <p class="stack card-text">S info</p>
+                </div>
+                <div class="tab-pane" id="breakpoints" role="tabpanel">
+                    <h5 class="card-title">Breakpoints</h5>
+                    <form id="breakpoints" action="">
+                        <input id="bp_delete" type="button" value="Delete" disabled="true">
+                        <label for="add_bp">Address:</label>
+                        <input name="add_bp" id="add_bp" />
+                        <input id="bp_add" type="button" value="Set">
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     </div>
@@ -38,6 +61,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
 <script src="{{url_for('static', filename='debug_conn.js')}}"></script>
+<script src="{{url_for('static', filename='page_func.js')}}"></script>
 
 {% endblock %}
 
