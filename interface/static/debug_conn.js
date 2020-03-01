@@ -12,21 +12,11 @@ class Breakpoint{
 var breakpoints = {}
 
 socket.on('connect', function(){
-    socket.emit('no_out_command', 'b *main')
-    socket.emit('no_out_command', 'b *main+4')
-    socket.emit('no_out_command', 'b *main+16')
-    socket.emit('no_out_command', 'r')
-    socket.emit('no_out_command', 'c')
+    socket.emit('no_out_command', 'start')
     socket.emit('update_disas')
-    socket.emit('update_bp')
+    socket.emit('update_stack')
+    socket.emit('update_registers')
     console.log('connected')
-
-    var step_button = $('#step').click(function(){
-        socket.emit('no_out_command', 'stepi')
-        socket.emit('update_registers')
-        socket.emit('update_stack')
-        socket.emit('update_disas')
-    })
 
     var delete_button = $('#bp_delete').click(function(){
         console.log('delete')
@@ -54,6 +44,42 @@ socket.on('connect', function(){
             socket.emit('update_bp')
         }
     })
+
+    var run_button = $('#run').click(function(){
+        socket.emit('no_out_command', 'r')
+        socket.emit('update_registers')
+        socket.emit('update_stack')
+        socket.emit('update_disas')
+    })
+
+    var run_button = $('#continue').click(function(){
+        socket.emit('no_out_command', 'c')
+        socket.emit('update_registers')
+        socket.emit('update_stack')
+        socket.emit('update_disas')
+    })
+
+    var run_button = $('#finish').click(function(){
+        socket.emit('no_out_command', 'fin')
+        socket.emit('update_registers')
+        socket.emit('update_stack')
+        socket.emit('update_disas')
+    })
+
+    var stepi_button = $('#step_i').click(function(){
+        socket.emit('no_out_command', 'si')
+        socket.emit('update_registers')
+        socket.emit('update_stack')
+        socket.emit('update_disas')
+    })
+
+    var stepo_button = $('#step_o').click(function(){
+        socket.emit('no_out_command', 'ni')
+        socket.emit('update_registers')
+        socket.emit('update_stack')
+        socket.emit('update_disas')
+    })
+
 })
 
 socket.on('disas', function(data){

@@ -19,7 +19,7 @@ body{
     color: #8f0b0b;
 }
 
-br + br{ /*remove extra linebreaks caused by deleting form elements using JS*/
+#breakpoints br + br{ /*remove extra linebreaks caused by deleting form elements using JS*/
     display: none;
 }
 

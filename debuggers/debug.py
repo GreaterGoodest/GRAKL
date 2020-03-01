@@ -23,12 +23,6 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 instance = GDBProcess("../tests/binaries/hello")
 
-@socketio.on("command")
-def gdb_recv(command, methods=['GET','POST']):
-    output = instance.run_command(str(command))
-    print(output)
-    socketio.emit('output', output)
-
 @socketio.on("update_registers")
 def update_registers(methods=['GET','POST']):
     print("registers")
@@ -72,7 +66,10 @@ def delete_bp(to_delete, methods=['GET','POST']):
 
 @socketio.on("no_out_command")#no output desired
 def gdb_recv_no_out(command, methods=['GET','POST']):
-    output = instance.run_command(str(command))
-    print(output)
+    try:
+        output = instance.run_command(str(command))
+        print(output)
+    except gdb.error:
+        print("Unable to exec", command)
 
 socketio.run(app, debug=False, port=5001)
