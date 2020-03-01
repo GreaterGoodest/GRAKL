@@ -13,7 +13,10 @@ class GDBProcess:
     gdb.execute('file {}'.format(binary)) 
 
   def run_command(self, command):
-    output = gdb.execute(command, to_string=True)
+    try:
+        output = gdb.execute(command, to_string=True)
+    except gdb.error:
+        output = "Process Completion or Fatal Error: Restart"
     return output
 
 
